@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from a_posts.views import home_view, post_create_view, post_delete_view
+from a_posts.views import home_view, post_create_view, post_delete_view, post_edit_view
 
 
 urlpatterns = [
@@ -25,4 +25,5 @@ urlpatterns = [
     path("", home_view, name="home"),
     path("post/create/", post_create_view, name="post-create"),
     path("post/delete/<pk>/", post_delete_view, name="post-delete"),
+    path("post/edit/<pk>/", post_edit_view, name="post-edit"),
 ]
