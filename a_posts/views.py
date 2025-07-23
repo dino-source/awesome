@@ -18,10 +18,12 @@ def post_create_view(request):
         if form.is_valid():
             post = form.save(commit=False)
 
-            website = requests.get(form.data["url"])
+            website = requests.get(form.data["url"])  # type: ignore
             html_sourcecode = BeautifulSoup(website.text, "html.parser")
 
-            find_image = html_sourcecode.select("meta[content^='https://live.staticflickr.com/']")
+            find_image = html_sourcecode.select(
+                "meta[content^='https://live.staticflickr.com/']"
+            )
             image = find_image[0]["content"]
             post.image = image
 
@@ -40,7 +42,7 @@ def post_create_view(request):
 
 
 def post_delete_view(request, pk):
-    post = Post.objects.get(id=pk)
+    post = Post.objects.get(id=pk)  # type: ignore
     if request.method == "POST":
         post.delete()
         return redirect("home")
@@ -49,19 +51,20 @@ def post_delete_view(request, pk):
 
 
 def post_edit_view(request, pk):
-    post = Post.objects.get(id=pk)
+    post = Post.objects.get(id=pk)  # type: ignore
     form = PostEditForm(instance=post)
-    
+
     if request.method == "POST":
         form = PostEditForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
             messages.success(request, "Post has been updated")
-            return redirect("home")            
-        
+            return redirect("home")
+
     context = {
         "post": post,
         "form": form,
     }
-    
-    return render(request, "a_posts/post_edit.html", context) 
+
+    return render(request, "a_posts/post_edit.html", context)
+
