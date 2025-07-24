@@ -6,8 +6,11 @@ from .models import Post
 from .forms import PostCreateForm, PostEditForm
 
 
-def home_view(request):
-    posts = Post.objects.all()  # type: ignore
+def home_view(request, tag=None):
+    if tag:
+        posts = Post.objects.filter(tags__slug=tag)  # type: ignore
+    else:
+        posts = Post.objects.all()  # type: ignore
     return render(request, "a_posts/home.html", {"posts": posts})
 
 
@@ -36,6 +39,7 @@ def post_create_view(request):
             post.artist = artist
 
             post.save()
+            form.save_m2m()
             return redirect("home")
 
     return render(request, "a_posts/post_create.html", {"form": form})
