@@ -1,8 +1,9 @@
+from operator import pos
 import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
+from .models import Post, Tag
 from .forms import PostCreateForm, PostEditForm
 
 
@@ -11,7 +12,15 @@ def home_view(request, tag=None):
         posts = Post.objects.filter(tags__slug=tag)  # type: ignore
     else:
         posts = Post.objects.all()  # type: ignore
-    return render(request, "a_posts/home.html", {"posts": posts})
+
+    categories = Tag.objects.all()  # type: ignore
+
+    context = {
+        "posts": posts,
+        "categories": categories,
+    }
+
+    return render(request, "a_posts/home.html", context)
 
 
 def post_create_view(request):
