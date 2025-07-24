@@ -9,6 +9,7 @@ from .forms import PostCreateForm, PostEditForm
 def home_view(request, tag=None):
     if tag:
         posts = Post.objects.filter(tags__slug=tag)  # type: ignore
+        tag = get_object_or_404(Tag, slug=tag)
     else:
         posts = Post.objects.all()  # type: ignore
 
@@ -17,6 +18,7 @@ def home_view(request, tag=None):
     context = {
         "posts": posts,
         "categories": categories,
+        "tag": tag,
     }
 
     return render(request, "a_posts/home.html", context)
