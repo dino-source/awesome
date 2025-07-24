@@ -1,4 +1,3 @@
-from operator import pos
 import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
