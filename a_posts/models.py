@@ -1,3 +1,6 @@
+# models.py in Django is a ORM level - Object Relational Mapping
+# Mapping of Django entities to Data Base entites !!!
+
 import uuid
 from django.db import models
 
@@ -27,6 +30,7 @@ class Post(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=20)
+    image = models.FileField(upload_to="icons/", null=True, blank=True)
     slug = models.SlugField(max_length=20, unique=True)
     order = models.IntegerField(null=True)
 

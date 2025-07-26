@@ -1,3 +1,7 @@
+# views.py in Django is a CONTROLLER (see MVC architectural pattern)!!!
+# business logic should be in a separate level - services.py !!!
+
+
 import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
