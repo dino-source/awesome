@@ -26,7 +26,7 @@ from a_posts.views import (
     post_edit_view,
     post_page_view,
 )
-from a_users.views import profile_view
+from a_users.views import profile_view, profile_edit_view
 
 
 urlpatterns = [
@@ -39,6 +39,7 @@ urlpatterns = [
     path("post/edit/<pk>/", post_edit_view, name="post-edit"),
     path("post/<pk>/", post_page_view, name="post"),
     path("profile/", profile_view, name="profile"),
+    path("profile/edit/", profile_edit_view, name="profile-edit"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
