@@ -1,3 +1,4 @@
+from django import forms
 from django.forms.models import ModelForm
 from .models import Profile
 
@@ -5,4 +6,9 @@ from .models import Profile
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = "__all__"
+        exclude = ["user"]
+        labels = {"realname": "Name"}
+        widgets = {
+            "image": forms.FileInput(),
+            "bio": forms.Textarea(attrs={"rows": 3}),
+        }
