@@ -3,6 +3,8 @@
   "venv": ".venv",
   "extraPaths": [
     ".",
-    "./a_users"
+    "./a_users",
+    "./a_posts",
+    "./a_core"
   ],
 }

@@ -10,3 +10,8 @@ dependencies = [
   "pillow>=11.3.0",
   "requests>=2.32.4",
 ]
+
+[dependency-groups]
+dev = [
+    "django-stubs>=5.2.2",
+]
