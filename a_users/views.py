@@ -1,9 +1,13 @@
-from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProfileForm
 
 
-def profile_view(request):
-    profile = request.user.profile
+def profile_view(request, username=None):
+    if username:
+        profile = get_object_or_404(User, username=username).profile
+    else:
+        profile = request.user.profile
     return render(request, "a_users/profile.html", {"profile": profile})
 
 

@@ -13,7 +13,7 @@
         </figure>
         <div class="p-4 pb-2">
             {% if post.author and post.author.profile %}
-                <a class="flex items-center gap-1 mb-4" href="">
+            <a class="flex items-center gap-1 mb-4" href="{% url 'userprofile' post.author.username %}">
                     {% if post.author.profile.is_avatar_set %}
                         <img class="{{ img_class }}" src="{{ post.author.profile.avatar }}">
                     {% else %}
