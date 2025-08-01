@@ -24,8 +24,10 @@
                     <span class="text-sm text-gray-400">@{{ post.author.username }}</span>
                 </a>
             {% else %}
-                <img class="{{ img_class }}" src="{% static 'images/avatar_default.svg' %}">
-                <span class="text-gray-500">no author</span>
+                <div class="flex items-center gap-1 mb-4">
+                    <img class="{{ img_class }}" src="{% static 'images/avatar_default.svg' %}">
+                    <span class="text-gray-500">no author</span>
+                </div>
             {% endif %}
             <p class="text-5xl mb-10 px-4 font1">{{ post.body }}</p>
             <div class="flex items-center gap-2 text-sm mb-5 flex-wrap">
