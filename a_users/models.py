@@ -1,10 +1,6 @@
-import logging
 from django.db import models
 from django.contrib.auth.models import User
 from django.templatetags.static import static
-
-
-logger = logging.getLogger(__name__)
 
 
 class Profile(models.Model):
@@ -21,11 +17,9 @@ class Profile(models.Model):
 
     @property
     def avatar(self):
-        try:
+        avatar = static("images/avatar_default.svg")
+        if self.image and self.image.url:
             avatar = self.image.url
-        except Exception as e:
-            logger.exception("An error occured: %s", e)
-            avatar = static("image/avatar_default.svg")
         return avatar
 
     @property
