@@ -16,15 +16,15 @@ class Profile(models.Model):
         return str(self.user)
 
     @property
-    def avatar(self):
-        avatar = static("images/avatar_default.svg")
-        if self.image and self.image.url:
-            avatar = self.image.url
-        return avatar
-
-    @property
     def is_avatar_set(self):
         return self.image and self.image.url
+
+    @property
+    def avatar(self):
+        avatar = static("images/avatar_default.svg")
+        if self.is_avatar_set:
+            avatar = self.image.url
+        return avatar
 
     @property
     def name(self):
