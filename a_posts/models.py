@@ -2,6 +2,7 @@
 # Mapping of Django entities to Data Base entites !!!
 
 import uuid
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -10,6 +11,12 @@ class Post(models.Model):
     artist = models.CharField(max_length=500, null=True)
     url = models.URLField(max_length=500, null=True)
     image = models.URLField(max_length=500)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="posts",
+    )
     body = models.TextField()
     tags = models.ManyToManyField("Tag")
     created = models.DateTimeField(auto_now_add=True)
