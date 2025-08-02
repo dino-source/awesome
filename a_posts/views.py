@@ -12,12 +12,12 @@ from .forms import PostCreateForm, PostEditForm
 
 def home_view(request, tag=None):
     if tag:
-        posts = Post.objects.filter(tags__slug=tag)  # type: ignore
+        posts = Post.objects.filter(tags__slug=tag)
         tag = get_object_or_404(Tag, slug=tag)
     else:
-        posts = Post.objects.all()  # type: ignore
+        posts = Post.objects.all()
 
-    categories = Tag.objects.all()  # type: ignore
+    categories = Tag.objects.all()
 
     context = {
         "posts": posts,
@@ -35,7 +35,7 @@ def post_create_view(request):
         if form.is_valid():
             post = form.save(commit=False)
 
-            website = requests.get(form.data["url"])  # type: ignore
+            website = requests.get(form.data["url"])
             html_sourcecode = BeautifulSoup(website.text, "html.parser")
 
             find_image = html_sourcecode.select(
