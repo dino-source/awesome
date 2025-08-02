@@ -1,13 +1,22 @@
+import logging
 from django.contrib.auth.models import User
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProfileForm
 
 
+logger = logging.getLogger(__name__)
+
+
 def profile_view(request, username=None):
     if username:
-        profile = get_object_or_404(User, username=username).profile
+        profile = get_object_or_404(User, username=username).profile  # type: ignore
     else:
-        profile = request.user.profile
+        try:
+            profile = request.user.profile
+        except Exception as e:
+            logger.exception("===> [CAUGHT EXCEPTION] An error occurred: %s", e)
+            raise Http404()
     return render(request, "a_users/profile.html", {"profile": profile})
 
 
