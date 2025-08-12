@@ -5,8 +5,16 @@ from django.shortcuts import get_object_or_404
 from .models import Profile
 
 
+def intentionally_unused_params(sender, **kwargs):
+    # The purpose of this method is just to make Pyright happy
+    # To force to stop it complaining about unused parameters
+    if kwargs and sender:
+        pass
+
+
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **_kwargs):
+def create_profile(sender, instance, created, **kwargs):
+    intentionally_unused_params(sender, **kwargs)
     user = instance
     if created:
         Profile.objects.create(
@@ -16,7 +24,8 @@ def create_profile(sender, instance, created, **_kwargs):
 
 
 @receiver(post_save, sender=Profile)
-def update_profile(sender, instance, created, **_kwargs):
+def update_profile(sender, instance, created, **kwargs):
+    intentionally_unused_params(sender, **kwargs)
     profile = instance
     if not created:
         user = get_object_or_404(User, id=profile.user.id)
