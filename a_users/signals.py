@@ -21,13 +21,18 @@ def create_profile(sender, instance, created, **kwargs):
             user=user,
             email=user.email,
         )
+    else:
+        profile = get_object_or_404(Profile, user=user)
+        profile.email = user.email
+        profile.save()
 
 
 @receiver(post_save, sender=Profile)
-def update_profile(sender, instance, created, **kwargs):
+def update_user(sender, instance, created, **kwargs):
     intentionally_unused_params(sender, **kwargs)
     profile = instance
     if not created:
         user = get_object_or_404(User, id=profile.user.id)
-        user.email = profile.email
-        user.save()
+        if user.email != profile.email:
+            user.email = profile.email
+            user.save()
