@@ -7,3 +7,9 @@ class AUsersConfig(AppConfig):
 
     def ready(self) -> None:
         import a_users.signals
+
+        # This code snippet is needed here just to make Pyright and Ruff
+        # happy, to force them to stop complaining about unused/unaccessed
+        # module a_users.signals
+        if a_users.signals.Profile.DoesNotExist:
+            pass
