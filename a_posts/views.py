@@ -1,4 +1,4 @@
-# views.py in Django is a CONTROLLER (see MVC architectural pattern)!!!
+# v,iews.py in Django is a CONTROLLER (see MVC architectural pattern)!!!
 # business logic should be in a separate level - services.py !!!
 
 
@@ -11,8 +11,16 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
-from .models import Post, Tag
-from .forms import CommentCreateForm, PostCreateForm, PostEditForm
+from .models import (
+    Post,
+    Tag,
+    Comment,
+)
+from .forms import (
+    CommentCreateForm,
+    PostCreateForm,
+    PostEditForm,
+)
 
 
 def home_view(request, tag=None):
@@ -70,8 +78,10 @@ def post_create_view(request):
 @login_required
 def post_delete_view(request, pk):
     post = get_object_or_404(Post, id=pk, author=request.user)
+
     if request.method == "POST":
         post.delete()
+        messages.success(request, "Post deleted")
         return redirect("home")
 
     return render(request, "a_posts/post_delete.html", {"post": post})
@@ -110,6 +120,7 @@ def post_page_view(request, pk):
 @login_required
 def comment_sent(request, pk):
     post = get_object_or_404(Post, id=pk)
+
     if request.method == "POST":
         form = CommentCreateForm(request.POST)
         if form.is_valid():
@@ -119,3 +130,15 @@ def comment_sent(request, pk):
             comment.save()
 
     return redirect("post", post.id)
+
+
+@login_required
+def comment_delete_view(request, pk):
+    post = get_object_or_404(Comment, id=pk, author=request.user)
+
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Comment deleted")
+        return redirect("post", post.parent_post.id)
+
+    return render(request, "a_posts/comment_delete.html", {"comment": post})
