@@ -25,6 +25,7 @@ from a_posts.views import (
     post_delete_view,
     post_edit_view,
     post_page_view,
+    comment_sent,
 )
 from a_users.views import (
     profile_delete_view,
@@ -47,6 +48,7 @@ urlpatterns = [
     path("profile/edit/", profile_edit_view, name="profile-edit"),
     path("profile/delete/", profile_delete_view, name="profile-delete"),
     path("profile/onboarding/", profile_edit_view, name="profile-onboarding"),
+    path("commentsent/<pk>", comment_sent, name="comment-sent"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
