@@ -75,3 +75,6 @@ class Comment(models.Model):
         except Exception as e:
             logger.exception("===> [CAUGHT EXCEPTION] An error occurred: %s", e)
             return f"no author : {self.body[:30]}"
+
+    class Meta:
+        ordering = ["-created"]
