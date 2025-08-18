@@ -15,6 +15,7 @@ from .models import (
     Post,
     Tag,
     Comment,
+    Reply,
 )
 from .forms import (
     CommentCreateForm,
@@ -160,3 +161,15 @@ def comment_delete_view(request, pk):
         return redirect("post", post.parent_post.id)
 
     return render(request, "a_posts/comment_delete.html", {"comment": post})
+
+
+@login_required
+def reply_delete_view(request, pk):
+    reply = get_object_or_404(Reply, id=pk, author=request.user)
+
+    if request.method == "POST":
+        reply.delete()
+        messages.success(request, "Reply deleted")
+        return redirect("post", reply.parent_comment.parent_post.id)
+
+    return render(request, "a_posts/reply_delete.html", {"reply": reply})
