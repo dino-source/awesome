@@ -25,8 +25,14 @@
                     <path d="M24 22h-24l12-20z"/>
                 </svg>
             </div>
-            Replies
-
+            {% if comment.replies.count %}
+                Replies
+                <span class="font-light text-gray-500 ml-1">{{ comment.replies.count }}</span>
+            {% else %}
+                {% if user.is_authenticated %}
+                    Add Reply
+                {% endif %}
+            {% endif %}
         </a>
         <div class="flex items-center gap-4 [&>a:hover]:underline">
             <div class="flex items-center gap-1">
@@ -45,9 +51,9 @@
                 {% include 'a_posts/reply.html' %}
             {% endfor %}
 
-            <form method="POST" class="replyform flex justify-between" autocomplete="off">
+            <form method="POST" action="{% url 'reply-sent' comment.id %}" class="replyform flex justify-between" autocomplete="off">
                 {% csrf_token %}
-                <input type="text" name="reply" placeholder="Add reply ..." maxlength="150">
+                {{ replyform }}
                 <button class="block" type="submit">Submit</button>
             </form>
         </div>

@@ -20,6 +20,7 @@ from .forms import (
     CommentCreateForm,
     PostCreateForm,
     PostEditForm,
+    ReplyCreateForm,
 )
 
 
@@ -110,9 +111,11 @@ def post_edit_view(request, pk):
 def post_page_view(request, pk):
     post = get_object_or_404(Post, id=pk)
     commentform = CommentCreateForm()
+    replyform = ReplyCreateForm()
     context = {
         "post": post,
         "commentform": commentform,
+        "replyform": replyform,
     }
     return render(request, "a_posts/post_page.html", context)
 
@@ -130,6 +133,21 @@ def comment_sent(request, pk):
             comment.save()
 
     return redirect("post", post.id)
+
+
+@login_required
+def reply_sent(request, pk):
+    comment = get_object_or_404(Comment, id=pk)
+
+    if request.method == "POST":
+        form = ReplyCreateForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.author = request.user
+            reply.parent_comment = comment
+            reply.save()
+
+    return redirect("post", comment.parent_post.id)
 
 
 @login_required
