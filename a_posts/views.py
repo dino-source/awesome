@@ -4,6 +4,7 @@
 
 import requests
 from bs4 import BeautifulSoup
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (
@@ -186,6 +187,4 @@ def like_post(request, pk):
         else:
             post.likes.add(request.user)
 
-    return redirect(
-        "post", post.id
-    )  # TODO: use HTMX in further version instead of this redirect
+    return render(request, "partials/likes.html", {"post": post})
