@@ -3,13 +3,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from a_posts.views import (
+    comment_sent,
+    comment_delete_view,
     home_view,
+    like_post,
     post_create_view,
     post_delete_view,
     post_edit_view,
     post_page_view,
-    comment_sent,
-    comment_delete_view,
     reply_sent,
     reply_delete_view,
 )
@@ -29,6 +30,7 @@ urlpatterns = [
     path("post/delete/<pk>/", post_delete_view, name="post-delete"),
     path("post/edit/<pk>/", post_edit_view, name="post-edit"),
     path("post/<pk>/", post_page_view, name="post"),
+    path("post/<pk>/like/", like_post, name="like-post"),
     path("profile/", profile_view, name="profile"),
     path("<username>/", profile_view, name="userprofile"),
     path("profile/edit/", profile_edit_view, name="profile-edit"),

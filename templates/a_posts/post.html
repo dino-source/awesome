@@ -51,9 +51,11 @@
                 <div class="flex items-center gap-4 [&>a:hover]:underline">
                     <div class="flex items-center gap-1">
                         <img class="w-5 -mt-1" src="{% static 'images/fireheart.svg' %}">
-                        1
+                        {{ post.likes.count }}
                     </div>
-                    <a href="">Like</a>
+                    {% if user.is_authenticated and user != post.author %}
+                        <a href="{% url 'like-post' post.id %}">Like</a>
+                    {% endif %}
                     {% if user.is_authenticated and user == post.author %}
                         <a href="{% url 'post-edit' post.id %}">Edit</a>
                         <a href="{% url 'post-delete' post.id %}">Delete</a>

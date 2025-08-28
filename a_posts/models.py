@@ -1,5 +1,5 @@
-# models.py in Django is a ORM level - Object Relational Mapping
-# Mapping of Django entities to Data Base entites !!!
+# DINOSOURCE: models.py in Django is a ORM level - Object Relational Mapping
+# DINOSOURCE: Mapping of Django entities to Data Base entites !!!
 
 import logging
 import uuid
@@ -22,6 +22,7 @@ class Post(models.Model):
         related_name="posts",
     )
     body = models.TextField()
+    likes = models.ManyToManyField(User, related_name="likedposts", through="LikedPost")
     tags = models.ManyToManyField("Tag")
     created = models.DateTimeField(auto_now_add=True)
     id = models.CharField(
@@ -37,6 +38,15 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-created"]
+
+
+class LikedPost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.user.username}: {self.post.title}"
 
 
 class Tag(models.Model):

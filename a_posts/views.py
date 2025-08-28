@@ -1,5 +1,5 @@
-# v,iews.py in Django is a CONTROLLER (see MVC architectural pattern)!!!
-# business logic should be in a separate level - services.py !!!
+# DINOSOURCE: views.py in Django is a CONTROLLER (see MVC architectural pattern)!!!
+# DINOSOURCE: business logic should be in a separate level - services.py !!!
 
 
 import requests
@@ -173,3 +173,15 @@ def reply_delete_view(request, pk):
         return redirect("post", reply.parent_comment.parent_post.id)
 
     return render(request, "a_posts/reply_delete.html", {"reply": reply})
+
+
+@login_required
+def like_post(request, pk):
+    post = get_object_or_404(Post, id=pk)
+
+    if post.author != request.user:
+        post.likes.add(request.user)
+
+    return redirect(
+        "post", post.id
+    )  # TODO: use HTMX in further version instead of this redirect
