@@ -22,11 +22,9 @@
         </div>
     </div>
     <div class="flex item-center gap-4 [&>a:hover]:underline">
-        <div class="flex item-center gap-1">
-            <img class="w-5 -mt-1" src="{% static 'images/fireheart.svg' %}">
-            1
-        </div>
-        <a href="">Like</a>
-        <a href="{% url 'reply-delete' reply.id %}">Delete</a>
+        {% include "partials/likes_reply.html" %}
+        {% if user.is_authenticated and reply.author == user %}
+            <a href="{% url 'reply-delete' reply.id %}">Delete</a>
+        {% endif %}
     </div>
 </reply> 

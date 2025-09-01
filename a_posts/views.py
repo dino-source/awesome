@@ -176,15 +176,41 @@ def reply_delete_view(request, pk):
     return render(request, "a_posts/reply_delete.html", {"reply": reply})
 
 
+def like_toggle(model):
+    def inner_func(func):
+        def wrapper(request, *args, **kwargs):
+            post = get_object_or_404(model, id=kwargs.get("pk"))
+            user_exist = post.likes.filter(username=request.user.username).exists()
+
+            if args:  # to stop Pyright complaining about unused args variable
+                pass
+
+            if post.author != request.user:
+                if user_exist:
+                    post.likes.remove(request.user)
+                else:
+                    post.likes.add(request.user)
+
+            return func(request, post)
+
+        return wrapper
+
+    return inner_func
+
+
 @login_required
-def like_post(request, pk):
-    post = get_object_or_404(Post, id=pk)
-    user_exist = post.likes.filter(username=request.user.username).exists()
-
-    if post.author != request.user:
-        if user_exist:
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user)
-
+@like_toggle(Post)
+def like_post(request, post):
     return render(request, "partials/likes.html", {"post": post})
+
+
+@login_required
+@like_toggle(Comment)
+def like_comment(request, post):
+    return render(request, "partials/likes_comment.html", {"comment": post})
+
+
+@login_required
+@like_toggle(Reply)
+def like_reply(request, post):
+    return render(request, "partials/likes_reply.html", {"reply": post})
