@@ -2,19 +2,14 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
+
+from utils import maybe_unused
 from .models import Profile
-
-
-def intentionally_unused_params(sender, **kwargs):
-    # The purpose of this method is just to make Pyright happy
-    # To force to stop it complaining about unused parameters
-    if kwargs and sender:
-        pass
 
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-    intentionally_unused_params(sender, **kwargs)
+    maybe_unused(kwargs, sender)
     user = instance
     if created:
         Profile.objects.create(
@@ -29,7 +24,7 @@ def create_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Profile)
 def update_user(sender, instance, created, **kwargs):
-    intentionally_unused_params(sender, **kwargs)
+    maybe_unused(kwargs, sender)
     profile = instance
     if not created:
         user = get_object_or_404(User, id=profile.user.id)

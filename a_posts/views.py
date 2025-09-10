@@ -1,7 +1,6 @@
 # DINOSOURCE: views.py in Django is a CONTROLLER (see MVC architectural pattern)!!!
 # DINOSOURCE: business logic should be in a separate level - services.py !!!
 
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -12,6 +11,9 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
+
+from utils import maybe_unused
+
 from .models import (
     Post,
     Tag,
@@ -179,11 +181,9 @@ def reply_delete_view(request, pk):
 def like_toggle(model):
     def inner_func(func):
         def wrapper(request, *args, **kwargs):
+            maybe_unused(args)
             post = get_object_or_404(model, id=kwargs.get("pk"))
             user_exist = post.likes.filter(username=request.user.username).exists()
-
-            if args:  # to stop Pyright complaining about unused args variable
-                pass
 
             if post.author != request.user:
                 if user_exist:

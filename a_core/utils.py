@@ -1,6 +1,7 @@
 from typing import Any
 
 
-def maybe_unused(arg: Any) -> None:
-    if arg:
+# to stop Pyright complaining about unused args variable
+def maybe_unused(*args: Any) -> None:
+    if args:
         pass
