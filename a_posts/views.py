@@ -12,7 +12,7 @@ from django.shortcuts import (
     get_object_or_404,
 )
 
-from utils import maybe_unused
+from a_core.utils import maybe_unused
 
 from .models import (
     Post,

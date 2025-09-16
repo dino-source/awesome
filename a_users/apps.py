@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-from utils import maybe_unused
+from a_core.utils import maybe_unused
 
 
 class AUsersConfig(AppConfig):

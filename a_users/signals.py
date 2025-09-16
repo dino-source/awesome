@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 
-from utils import maybe_unused
+from a_core.utils import maybe_unused
 from .models import Profile
 
 
