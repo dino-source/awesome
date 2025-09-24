@@ -128,6 +128,7 @@ def post_page_view(request, pk):
 def comment_sent(request, pk):
     post = get_object_or_404(Post, id=pk)
 
+    comment = None
     if request.method == "POST":
         form = CommentCreateForm(request.POST)
         if form.is_valid():
@@ -136,7 +137,11 @@ def comment_sent(request, pk):
             comment.parent_post = post
             comment.save()
 
-    return redirect("post", post.id)
+    context = {
+        "comment": comment,
+        "post": post,
+    }
+    return render(request, "partials/add_comment.html", context)
 
 
 @login_required
