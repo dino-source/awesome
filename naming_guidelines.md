@@ -197,7 +197,7 @@ The right name usually emerges from that sentence.
 | Variable          | snake_case                       | State or data                |
 | Constant          | SCREAMING_SNAKE_CASE             | Fixed configuration or limit |
 | Template          | lowercase_with_underscores.html  | Rendered content             |
-| Test              | snake*case starting with `test*` | Expected behavior            |
+| Test              | snake_case starting with `test_` | Expected behavior            |
 
 ---
 
