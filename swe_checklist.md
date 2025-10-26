@@ -7,79 +7,83 @@
 ## I. Philosophy & Intent (Why You Build)
 
 - [ ] **Ultimate Goal:**  
-      Does this work help mankind be good and become better versions of themselves?
+       Does this work help mankind be good and become better versions of themselves?
 
 - [ ] **Strategic Goal:**  
-      Am I contributing to people or organizations that pursue the same moral purpose?
+       Am I contributing to people or organizations that pursue the same moral purpose?
 
 - [ ] **Tactical Goal:**  
-      Does this feature satisfy the business and users — _without contradicting_ the first two goals?
+       Does this feature satisfy the business and users — _without contradicting_ the first two goals?
 
 ---
 
 ## II. Design & Reasoning (How You Build)
 
-### 4a) What is it syntactically?
+### 1) What is it syntactically?
 
 - [ ] Is it a constant, variable, function, class, module, or package?
 - [ ] Is its name clear, Pythonic, and self-descriptive?
+- [ ] Does the name of this entity accurately reflect its problem domain or functionality?
+- [ ] Does this name contribute to making the code self-descriptive and self-documenting?
+- [ ] Is the balance between expressiveness, readability, and brevity well maintained?
+- [ ] Were alternative names considered, and what were they?
 - [ ] Does it follow PEP 8 and project naming conventions?
 
-### 4b) What is it semantically?
+### 2) What is it semantically?
 
 - [ ] What _concept_ does it represent (action, data, policy, configuration, etc.)?
 - [ ] Can someone understand what it is and what it does by reading the name and docstring?
 
-### 4c) Why this solution?
+### 3) Why this solution?
 
 - [ ] Is it implemented from scratch, from stdlib, or 3rd-party?
 - [ ] If self-implemented, why were existing options not sufficient?
 - [ ] Does this choice improve maintainability, readability, or performance?
 
-### 4d) What is it architecturally?
+### 4) What is it architecturally?
 
 - [ ] Which architectural layer does it belong to? (Domain, Application, Infrastructure, Interface)
 - [ ] Is its role a controller, service, repository, entity, DTO, helper, etc.?
 - [ ] Does it respect architectural boundaries (no circular imports, etc.)?
 
-### 4e) What entity from the problem domain does it reflect?
+### 5) What entity from the problem domain does it reflect?
 
 - [ ] Is it directly related to a domain concept (e.g., User, Order, Invoice)?
 - [ ] If not, is it a technical abstraction that supports domain logic (e.g., Repository, Serializer, ViewModel)?
 
-### 4f) What are the dependencies?
+### 6) What are the dependencies?
 
 - [ ] Are dependencies explicit and minimal?
 - [ ] Does it have **low coupling** and **high cohesion**?
 - [ ] Are dependencies injected, not hardcoded?
 - [ ] Does it depend upward (bad) or downward (good) in the architecture?
 
-### 4g) Why here? (placement rationale)
+### 7) Why here? (placement rationale)
 
 - [ ] Why is it in this folder/app/module/class?
 - [ ] Does it belong conceptually to its surroundings?
 - [ ] Would moving it simplify structure or reduce imports?
 
-### 4h) Why this design?
+### 8) Why this design?
 
 - [ ] How does it simplify code or improve expressiveness?
 - [ ] What are the **trade-offs** (complexity, performance, extensibility, testability)?
 - [ ] What are the **costs** (technical debt, cognitive load, maintenance)?
 - [ ] Does it follow **YAGNI**, **KISS**, **DRY**, and **SRP** principles?
 
-### 4i) What are the alternatives?
+### 9) What are the alternatives?
 
 - [ ] What other approaches could solve the same problem?
 - [ ] Why were they rejected?
 - [ ] What would you choose differently if constraints changed?
 
-### 4j) How is it documented?
+### 10) How is it documented?
 
 - [ ] Does it have a clear docstring describing _what_ and _why_?
 - [ ] Is it referenced in `README`, ADR (Architecture Decision Record), or developer docs?
 - [ ] Is it discoverable via `help()`, Django Admin, or API docs?
 
-### 4k) How is it tested?
+### 11) How is it tested?
 
 - [ ] Is it covered by unit, integration, or end-to-end tests?
 - [ ] Are dependencies mocked or isolated where appropriate?
@@ -90,27 +94,27 @@
 
 ## III. Operational & Ethical Extensions (How It Lives)
 
-### 5a) Deployment
+### 1) Deployment
 
 - [ ] Is deployment automated (CI/CD, GitHub Actions)?
 - [ ] Are secrets and credentials securely managed?
 
-### 5b) Monitoring
+### 2) Monitoring
 
 - [ ] Are metrics, logging, and alerts in place for runtime visibility?
 - [ ] Are failures discoverable and actionable?
 
-### 5c) Maintenance
+### 3) Maintenance
 
 - [ ] Is there a migration or refactor path for future changes?
 - [ ] Is the codebase easy to evolve safely?
 
-### 5d) Security
+### 4) Security
 
 - [ ] Are inputs validated and sanitized?
 - [ ] Are permissions, sessions, and credentials handled safely?
 
-### 5e) Moral Footprint
+### 5) Moral Footprint
 
 - [ ] Could this feature be abused to harm users?
 - [ ] Are there privacy or ethical implications?
